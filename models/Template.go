@@ -14,6 +14,7 @@ import (
 
 type Template struct {
 	Name string
+	Version string
 }
 
 func NewTemplate(name string) *Template {
@@ -67,7 +68,7 @@ func (t *Template) Unpack(src string, dest string) error {
 }
 
 // Parse the manifest file for the template and save the values in the Template structure
-// The manifest file should have th esame name as the template with a .tm extension
+// The manifest file should have the same name as the template with a .tm extension
 func (t *Template) loadManifest(mf string) error {
 	yf, err := ioutil.ReadFile(mf)
 	if err != nil {
