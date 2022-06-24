@@ -22,13 +22,20 @@ func NewTemplate(name string) *Template {
 }
 
 func (t *Template) String() string {
-	var name string = "Template: "
-	if len(t.Name) == 0 {
-		name = name + t.Name + " V" + t.Version
+	var name strings.Builder
+	name.WriteString("Template: '")
+	name.WriteString(t.Name)
+	name.WriteString(" ")
+
+	if len(t.Version) != 0 {
+		name.WriteString("V")
+		name.WriteString(t.Version)
 	} else {
-		name = name + t.Name
+		name.WriteString("(not unpacked)")
 	}
-	return name
+
+	name.WriteString("'")
+	return name.String()
 }
 
 // Unpack the zip file containing all the necessary files for the template
