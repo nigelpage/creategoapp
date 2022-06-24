@@ -13,7 +13,7 @@ import (
 )
 
 type Template struct {
-	Name string
+	Name    string
 	Version string
 }
 
@@ -22,7 +22,13 @@ func NewTemplate(name string) *Template {
 }
 
 func (t *Template) String() string {
-	return t.Name
+	var name string = "Template: "
+	if len(t.Name) == 0 {
+		name = name + t.Name + " V" + t.Version
+	} else {
+		name = name + t.Name
+	}
+	return name
 }
 
 // Unpack the zip file containing all the necessary files for the template
