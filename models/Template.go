@@ -4,7 +4,6 @@ import (
 	"archive/zip"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strings"
@@ -49,7 +48,7 @@ func (t *Template) Unpack(src string, dest string) error {
 
 	for _, f := range reader.File {
 		fp := filepath.Join(dest, f.Name)
-		strings.HasPrefix(fp, filepath.Clean(dest)+string(os.PathSeparator))
+		_ = strings.HasPrefix(fp, filepath.Clean(dest)+string(os.PathSeparator))
 		filenames = append(filenames, fp)
 		if f.FileInfo().IsDir() {
 			os.MkdirAll(fp, os.ModePerm)
@@ -83,7 +82,7 @@ func (t *Template) Unpack(src string, dest string) error {
 // Parse the manifest file for the template and save the values in the Template structure
 // The manifest file should have the same name as the template with a .tm extension
 func (t *Template) loadManifest(mf string) error {
-	yf, err := ioutil.ReadFile(mf)
+	yf, err := os.ReadFile(mf)
 	if err != nil {
 		return err
 	}
